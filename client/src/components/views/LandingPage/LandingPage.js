@@ -1,16 +1,26 @@
 import React,{useEffect} from 'react'
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
-function LandingPage() {
+import NavBar from '../Navbar/NavBar'
+
+import Button from '../../common/Button'
+
+function LandingPage(props) {
 
     useEffect(()=>{
-        axios.get('/').then(response => console.log(response))
+        axios.get('/api/').then(response => console.log(response))
     }, [])
+
+
     return (
-        <div>
-            dkdkdkdk
+        <div >
+            <NavBar />
+            <Button>버튼</Button>
+            <h2>시작 페이지</h2>
+
         </div>
     )
 }
 
-export default LandingPage
+export default withRouter(LandingPage)

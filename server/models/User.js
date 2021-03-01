@@ -20,9 +20,6 @@ const userSchema = mongoose.Schema({
         default: 0
     },
     image: String,
-    token:{
-        type: String
-    },
     tokenExp:{
         type: Number
     }
@@ -58,13 +55,27 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 userSchema.methods.generateToken = function(cb){
     let user = this;
-    let token = jwt.sign(user._id.toHexString(), 'secretToken')
+    let token = jwt.sign(user._id.toHexString(), 'secretToken',{expiresIn: '7d'})
 
     user.token = token
     user.save(function(err, user){
         if(err) return cb(err)
         cb(null, user)
     })
+}
+
+userSchema.methods.generateToken2 = function(cb){
+    const token = jwt.sign(
+        {
+            _id: this.id,
+            name: this.name
+        },
+        'secretToken',
+        {
+            expiresIn: '7d'
+        }
+    )
+    cb(null, token)
 }
 
 userSchema.statics.findByToken = function(token, cb){
@@ -77,6 +88,19 @@ userSchema.statics.findByToken = function(token, cb){
             cb(null, user)
         })
     })
+}
+
+
+
+userSchema.methods.checkPasword = async function(password){
+    const result = await bcrypt.compare(paswsord, this.password);
+    return result;
+}
+
+userSchema.methods.serialize = function(){
+    const data = this.toJSON();
+    delete data.password;
+    return data;
 }
 
 const User = mongoose.model('User', userSchema)

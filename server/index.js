@@ -12,13 +12,14 @@ const userRouter = require('./routes/user');
 const mainRouter = require('./routes/main')
 
 
-
 //url코드를 가지고 올 수 있게
 app.use(bodyPorser.urlencoded({extended: true}))
 //json을 가지고 올 수 있게
 app.use(bodyPorser.json())
 
 app.use(cookieParser());
+
+
 
 const mongoose = require('mongoose')
 
@@ -27,8 +28,8 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB Connected...')).catch(err => console.log(err))
 
 
-app.use('/', mainRouter)
-app.use('/users', userRouter)
+app.use('/api/', mainRouter)
+app.use('/api/users', userRouter)
 
 
 
