@@ -5,6 +5,14 @@ import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 
 
+//에러를 보여주는 부분
+const ErrorMessage = styled.div`
+    color: red;
+    text-align: center;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+`
+
 //로그인인지 회원가입 인지 구분해야 하니까
 
 const AuthFormBlock = styled.div`
@@ -56,22 +64,32 @@ const textMap = {
     register: '회원가입',
 };
 
-const AuthForm = ({type, onChange}) => {
+const AuthForm = ({type, onChange, onSubmit, error}) => {
     const text = textMap[type];
     return (
         <AuthFormBlock>
             <h3>{text}</h3>
-            <form>
-                <StyledInput autoComplete="name" name="name" placeholder="아이디" onChange={onChange}/>
+            <form onSubmit={onSubmit}>
+                <StyledInput autoComplete="email" name="email" placeholder="아이디" type="email" onChange={onChange}/>
+                {type === 'register' && (
+                    <StyledInput
+                        autoComplete="name"
+                        name="name"
+                        placeholder="이름"
+                        onChange={onChange}
+                    />
+                )}
                 <StyledInput autoComplete="new-password" name="password" placeholder="비밀번호" type="password" onChange={onChange}/>
                 {type === 'register' && (
                     <StyledInput
                         autoComplete="new-password"
-                        name="password"
+                        name="cpPassword"
                         placeholder="비밀번호 확인"
-                        type="pasword"
+                        type="password"
+                        onChange={onChange}
                     />
                 )}
+                {error && <ErrorMessage>{error}</ErrorMessage>} 
                 <ButtonWithMarginTop cyan fullWidth >{text}</ButtonWithMarginTop>
             </form>
             <Footer>

@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux'
 import {loginUser} from '../../../_action/user_action'
 import {withRouter} from 'react-router-dom'
 
-import AuthForm from '../../auth/AuthForm';
+
 import AuthTemplate from '../../auth/AuthTemplate';
 import LoginForm from '../../auth/LoginForm';
 

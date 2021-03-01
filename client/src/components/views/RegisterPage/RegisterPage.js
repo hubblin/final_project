@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom'
 
 import AuthForm from '../../auth/AuthForm';
 import AuthTemplate from '../../auth/AuthTemplate';
+import RegisterForm from '../../auth/RegisterForm';
 
 function RegisterPage(props) {
 
@@ -58,7 +59,7 @@ function RegisterPage(props) {
     }
     return (
         <AuthTemplate>
-            <AuthForm type="register"/>
+            <RegisterForm/>
         </AuthTemplate>
     )
 }

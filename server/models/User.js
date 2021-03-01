@@ -15,14 +15,7 @@ const userSchema = mongoose.Schema({
         type: String,
         minlength: 5
     },
-    lastname:{
-        type: String,
-        default: 0
-    },
     image: String,
-    tokenExp:{
-        type: Number
-    }
 })
 
 //스키마에 붙여 사용하는데, 각각 특성은 특정 동작 이전, 이후에 어떤 행동을 취할 지를 정의할 수 있는 것(pre, post)

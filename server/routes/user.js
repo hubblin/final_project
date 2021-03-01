@@ -11,30 +11,23 @@ const Joi = require('@hapi/joi');
 router.post('/register', (req,res) => {
     //회원가입시에 필요한 정보들을 client에서 가져오면
     //그것들을 데이터베이스에 넣어준다.
-    const schema = Joi.object().keys({
-        name : Joi.string().alphanum().min(3).max(20).required(),
-        password: Joi.string().required()
-    })
-    const result = schema.validate(req.body);
-    if(result.error){
-        return res.status(400).json({success: false, error})
-    }
+
     const user = new User(req.body);
 
-    const exists = User.findByUsername(user.name)
-
-    if (exists) {
-        return res.status(409).json({ success: false, body: "user already exist" })
-    }
-
-    
-    
-    user.save((err, doc) => {
+    User.findOne({email: user.email}, (err, doc)=>{
         if(err) return res.json({success : false, err})
-        return res.status(200).json({
-            success: true
+        if (doc) {
+            return res.json({ success: false, message: "이미 존재하는 아이디 입니다." })
+        }
+        user.save((err2, doc2) => {
+            if(err2) return res.json({success : false, err2})
+            return res.status(200).json({
+                success: true
+            })
         })
     })
+
+
 
 })
 

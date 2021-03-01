@@ -6,6 +6,8 @@ import NavBar from '../Navbar/NavBar'
 
 import Button from '../../common/Button'
 
+import HeaderContainer from '../../common/HeaderContainer'
+
 function LandingPage(props) {
 
     useEffect(()=>{
@@ -15,8 +17,8 @@ function LandingPage(props) {
 
     return (
         <div >
-            <NavBar />
-            <Button>버튼</Button>
+            <HeaderContainer/>
+
             <h2>시작 페이지</h2>
 
         </div>
