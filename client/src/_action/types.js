@@ -1,3 +1,10 @@
 export const LOGIN_USER = "login_user"
 export const REGISTER_USER = "register_user"
 export const AUTH_USER = 'auth_user'
+export const WRITE_POST = 'write_post'
+export const GET_POST = 'get_post'
+export const FIND_POST = 'find_post'
+export const OWN_POST = 'own_post'
+export const RESET_POST = 'reset_post'
+export const UPDATE_POST = 'update_post'
+export const DELETE_POST = 'delete_post'

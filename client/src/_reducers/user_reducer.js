@@ -13,7 +13,7 @@ export default function(state ={}, action){
             break;
 
         case AUTH_USER:
-            return { ...state, userData: action.payload }
+            return { ...state, userName: action.payload.name }
             break;
         default:
             return state;

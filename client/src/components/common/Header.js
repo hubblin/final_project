@@ -4,6 +4,8 @@ import Responsive from './Responsive';
 import Button from './Button';
 import {Link} from 'react-router-dom';
 
+import palette from '../../lib/styles/palette';
+
 const HeaderBlock = styled.div`
     position: fixed;
     width: 100%;
@@ -22,6 +24,11 @@ const Wrapper = styled(Responsive)`
         font-size: 1.125rem;
         font-weight: 800;
         letter-spacing: 2px;
+        color: black;
+        text-decoration: underline;
+        &:hover{
+            color: ${palette.gray[6]}
+        }
     }
     .right{
         display: flex;
@@ -40,6 +47,11 @@ const UserInfo = styled.div`
     margin-right: 1rem;
 `
 
+const Goregister = styled.div`
+    font-weight: 400;
+    margin-right: 1rem;
+`
+
 const Header = ({isLoggedIn, userName, onLogout}) => {
     return(
         <>
@@ -53,6 +65,10 @@ const Header = ({isLoggedIn, userName, onLogout}) => {
                         </div>
                     ):(
                         <div className="right">
+                            <Goregister>
+                                <Link to="/register">회원가입</Link>
+                            </Goregister>
+     
                             <Button to="/login">로그인</Button>
                         </div>
                     )}

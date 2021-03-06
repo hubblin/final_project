@@ -30,10 +30,19 @@ router.get('/lists', function(req, res){
         return res.status(400);
     }
     const {tag, name} = req.query;
+    if(!tag){
+
+    }else{
+        parsedTag = tag.split(',');
+    }
+    
+
     const query = {
         ...(name ? {'user.name' : name} : {}),
-        ...(tag ? {tags : tag} : {})
+        ...(tag ? {tags : { $all : parsedTag}} : {})
     }
+
+
 
     Post.find(query).sort({_id: -1}).limit(10).skip((page - 1) * 10).exec(function(err, doc){
         if (err) return res.status(404).json({ success: false, err })

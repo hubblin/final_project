@@ -13,9 +13,9 @@ const mainRouter = require('./routes/main')
 
 
 //url코드를 가지고 올 수 있게
-app.use(bodyPorser.urlencoded({extended: true}))
+app.use(bodyPorser.urlencoded({limit:"50mb",extended: true}))
 //json을 가지고 올 수 있게
-app.use(bodyPorser.json())
+app.use(bodyPorser.json({limit: "50mb"}))
 
 app.use(cookieParser());
 

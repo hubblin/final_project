@@ -36,6 +36,12 @@ const StyledButton = styled.button`
             }
         `
     }
+
+    &:disabled{
+        background: ${palette.gray[3]};
+        color: ${palette.gray[5]};
+        cursor: not-allowed;
+    }
 `;
 
 const Button = ({to, history, ...rest}) => {
