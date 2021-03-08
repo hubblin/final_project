@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PostList from '../../components/post/PostList';
 
 import {getPost} from '../../_action/writer_action';
@@ -11,10 +11,12 @@ import queryString from 'query-string'
 
 import {withRouter} from 'react-router-dom';
 
-import Draw from './Draw';
 
 const PostListContainer = ({page, history}) =>{
     const dispatch = useDispatch();
+
+    
+
     const queryObj = queryString.parse(page);
     let currentPage;
     let currentTag;
@@ -37,8 +39,6 @@ const PostListContainer = ({page, history}) =>{
     const [Version, setVersion] = useState('searchTag');
     const [Search, setSearch] = useState('');
 
-    
-
     useEffect(()=>{
         dispatch(getPost(null,currentPage,currentTag)).then(response =>{
             if(response.payload.success){
@@ -48,6 +48,11 @@ const PostListContainer = ({page, history}) =>{
         })
     },[currentPage, currentTag])
 
+    const tagsValue = useSelector((state) => state.search.tagsValue)
+    useEffect(()=>{
+        setSearch(tagsValue)
+    },[tagsValue])
+    
 
     const onChange = e =>{
         const {value, name} = e.target;
@@ -71,12 +76,12 @@ const PostListContainer = ({page, history}) =>{
         }
     }
 
-
+    
 
     return(
         <div>
-            <Draw/>
-            <SearchBox onChange={onChange} onSearch={onSearch}/>
+            
+            <SearchBox onChange={onChange} onSearch={onSearch} inputValue={Search}/>
             <PostList posts={Posts}/>
             <Pagination page={currentPage} lastPage={LastPage}/>
         </div>

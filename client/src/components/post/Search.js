@@ -49,7 +49,7 @@ const SearchForm = styled.div`
     }
 `;
 
-const Search = ({onSearch, onChange}) =>{
+const Search = ({onSearch, onChange, inputValue}) =>{
     return (
         <SearchBlock>
             <SearchForm>
@@ -57,7 +57,7 @@ const Search = ({onSearch, onChange}) =>{
                     <option value="searchTag">태그</option>
                     <option value="searchUser">유저 이름</option>
                 </select>
-                <input name="search" placeholder="검색어를 입력하세요" onChange={onChange}/>
+                <input value={inputValue} name="search" placeholder="검색어를 입력하세요" onChange={onChange}/>
                 <button onClick={onSearch}>검색</button>
             </SearchForm>
         </SearchBlock>
