@@ -9,6 +9,32 @@ const Joi = require('@hapi/joi');
 
 const {auth} = require('../middleware/auth')
 
+const multer = require("multer");
+
+//multer-optional
+//서버에 사진 저장하는거
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}_${file.originalname}.jpg`);
+    },
+});
+var upload = multer({storage: storage}).single("file");
+
+router.post("/draw", (req,res)=>{
+    upload(req,res, (err)=>{
+
+        if(err) return res.json({success: false, err});
+        return res.json({
+            success: true,
+            image: res.req.file.path,
+            fileName: res.req.file.filename
+        })
+    })
+})
+
 //get == read all 
 router.get('/', function (req, res) {
 

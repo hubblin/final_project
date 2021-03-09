@@ -6,7 +6,7 @@ import * as tf from "@tensorflow/tfjs";
 import { drawRect } from "../common/utilities";
 import {useDispatch} from 'react-redux';
 
-
+import axios from 'axios';
 
 const DrawArea = styled.div`
     width: 800px;
@@ -30,6 +30,10 @@ const DrawArea = styled.div`
             background: ${palette.gray[6]};
         }
     }
+`;
+
+const DrawButton = styled.button`
+    
 `
 
 const Draw = ({func}) => {
@@ -88,11 +92,45 @@ const Draw = ({func}) => {
         }
     }
 
+    const clearCanvas = () => {
+        if(!canvasRef.current){
+            return;
+        }
+        canvas = canvasRef.current;
+        ctx = canvas.getContext("2d");
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+
+    const downloadImage = (imageData) => {
+        
+        var blobBin = atob(imageData.split(',')[1]);
+
+        var array = [];
+        for(var i =0; i < blobBin.length; i++){
+            array.push(blobBin.charCodeAt(i));
+        }
+        var file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+        var formdata = new FormData();
+       
+        formdata.append('file', file);
+        console.log( formdata.get('file'));
+        axios.post('/api/draw', formdata).then((response)=>{
+            console.log({response});
+
+        })
+    }
+
+
+
 
     const onCheck = async() =>{
         const nets = await tf.loadGraphModel('https://cloud-real-time-tensorflow-js-model.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json');
+        const ImageData = canvas.toDataURL();
 
         const timg = tf.browser.fromPixels(canvas);
+       
         
         const resized = tf.image.resizeBilinear(timg, [800,600]);
         const casted = resized.cast('int32');
@@ -115,14 +153,19 @@ const Draw = ({func}) => {
         tf.dispose(casted)
         tf.dispose(expanded)
         tf.dispose(obj)
-       
+
+ 
+
         func(getResult)
+        downloadImage(ImageData)
+
     }
 
     return (
         <DrawArea>
             <canvas className="canvasStyle" ref={canvasRef} width="800" height="600"/>
             <button onClick={() =>onCheck()}>태그 추출하기</button>
+            <button onClick={clearCanvas}>캔버스 초기화</button>
         </DrawArea>
     );
 };

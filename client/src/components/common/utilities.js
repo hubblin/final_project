@@ -4,6 +4,7 @@ const labelmap = {
     2: {name: 'Pocket', color: 'yellow'},
     3: {name: 'Pants', color: 'lime'}
 }
+//타자 치면 위에 부서지는 것만
 
 
 //Define a drawing function
@@ -39,5 +40,4 @@ export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight,
         }
     }
     return getResult;
-    
 }
