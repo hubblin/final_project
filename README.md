@@ -7,4 +7,5 @@ tensorflow의 object detection model을 활용하여 웹 상에서 그림을 그
 <img src="./images/객체인식.gif" width="500px"  title="ddd"></img> 
 
 ### 특징 추출 후 그림 데이터 수집
-<img src="./images/객체인식.gif" width="500px"  title="ddd"></img> 
+<img src="./images/인식사진.png" width="500px"  title="ddd"></img> 
+<img src="./images/저장된이미지.png" width="500px"  title="ddd"></img> 
