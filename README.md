@@ -5,3 +5,6 @@ tensorflow의 object detection model을 활용하여 웹 상에서 그림을 그
 
 ### 그림속 특징 추출 및 자동완성
 <img src="./images/객체인식.gif" width="500px"  title="ddd"></img> 
+
+### 특징 추출 후 그림 데이터 수집
+<img src="./images/객체인식.gif" width="500px"  title="ddd"></img> 
